@@ -18,7 +18,8 @@ Created Migration: /some/path/20180516163212_add-user-table.js
 **/some/path/20180516163212_add-user-table.js**
 
 ```js
-exports = require("knex-migrate-sql-file");
+//                    Don't forget function call ⤵
+module.exports = require("knex-migrate-sql-file")();
 ```
 
 **/some/path/20180516163212_add-user-table.up.sql**
@@ -45,12 +46,6 @@ You can override `up` or `down` function according to your needs.
 <dt><a href="#down">down(knex, Promise)</a></dt>
 <dd><p>Reads <code>.down.sql</code> file and executes it using <code>knex.raw()</code> method.</p>
 </dd>
-<dt><a href="#upSync">upSync(knex, Promise)</a></dt>
-<dd><p>Reads <code>.up.sql</code> file (sync) and executes it using <code>knex.raw()</code> method.</p>
-</dd>
-<dt><a href="#downSync">downSync(knex, Promise)</a></dt>
-<dd><p>Reads <code>.down.sql</code> file (sync) and executes it using <code>knex.raw()</code> method.</p>
-</dd>
 </dl>
 
 <a name="up"></a>
@@ -67,7 +62,7 @@ Reads `.up.sql` file and executes it using `knex.raw()` method.
 
 **Example**  
 ```js
-exports = require("knex-migrate-sql-file");
+module.exports = require("knex-migrate-sql-file")();
 ```
 <a name="down"></a>
 
@@ -83,37 +78,5 @@ Reads `.down.sql` file and executes it using `knex.raw()` method.
 
 **Example**  
 ```js
-exports = require("knex-migrate-sql-file");
-```
-<a name="upSync"></a>
-
-## upSync(knex, Promise)
-Reads `.up.sql` file (sync) and executes it using `knex.raw()` method.
-
-**Kind**: global function  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| knex | <code>Knex</code> | Knex object |
-| Promise | <code>Promise</code> | Promise |
-
-**Example**  
-```js
-exports = require("knex-migrate-sql-file").sync;
-```
-<a name="downSync"></a>
-
-## downSync(knex, Promise)
-Reads `.down.sql` file (sync) and executes it using `knex.raw()` method.
-
-**Kind**: global function  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| knex | <code>Knex</code> | Knex object |
-| Promise | <code>Promise</code> | Promise |
-
-**Example**  
-```js
-exports = require("knex-migrate-sql-file").sync;
+module.exports = require("knex-migrate-sql-file")();
 ```
