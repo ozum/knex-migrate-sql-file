@@ -5,7 +5,8 @@
   "main": "lib/index",
   "scripts": {
     "build:doc": "jsdoc2md --template README.hbs --files lib/**/*.js > README.md",
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "postversion": "npm test && git push --follow-tags origin master && npm publish"
   },
   "repository": {
     "type": "git",
