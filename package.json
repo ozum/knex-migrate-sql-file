@@ -1,0 +1,25 @@
+{
+  "name": "knex-migrate-sql",
+  "version": "1.0.0",
+  "description": "Use sql files instead of `knex.schema` methods.",
+  "main": "lib/index",
+  "scripts": {
+    "build:doc": "jsdoc2md --template README.hbs --files lib/**/*.js > README.md",
+    "test": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ozum/knex-migrate-sql-file.git"
+  },
+  "keywords": ["knex", "migration", "migrate", "sql", "file"],
+  "author": "Özüm Eldoğan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ozum/knex-migrate-sql-file/issues"
+  },
+  "homepage": "https://github.com/ozum/knex-migrate-sql-file#readme",
+  "devDependencies": {
+    "jest": "^22.4.3",
+    "jsdoc-to-markdown": "^4.0.1"
+  }
+}
