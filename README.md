@@ -6,8 +6,9 @@ Exports `up` and `down` functions whichs executes `knex.raw()` method on SQL fil
 
 # Synopsis
 
-1.  Create `knex` migration file:
-1.  Import this library in migration file:
+1. Create `knex` migration file
+1. Import this library in migration file
+1. Create SQL files
 
 ```sh
 $ knex migrate:make add-user-table
