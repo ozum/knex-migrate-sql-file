@@ -1,5 +1,5 @@
 {
-  "name": "knex-migrate-sql",
+  "name": "knex-migrate-sql-file",
   "version": "1.0.1",
   "description": "Use sql files instead of `knex.schema` methods.",
   "main": "lib/index",
@@ -12,13 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/ozum/knex-migrate-sql-file.git"
   },
-  "keywords": [
-    "knex",
-    "migration",
-    "migrate",
-    "sql",
-    "file"
-  ],
+  "keywords": ["knex", "migration", "migrate", "sql", "file"],
   "author": "Özüm Eldoğan",
   "license": "MIT",
   "bugs": {
