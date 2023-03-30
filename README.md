@@ -1,82 +1,93 @@
 # knex-migrate-sql-file
 
-Use sql files instead of `knex.schema` methods.
+Use sql files instead of (or in addition to) `knex.schema` methods.
 
-Exports `up` and `down` functions whichs executes `knex.raw()` method on SQL files having same file name appended `.up.sql` and `.down.sql`.
+Exports `getMigrators`, `upSQL` and `downSQL` functions which executes `knex.raw()` method on SQL files having same file name appended `.up.sql` and `.down.sql`.
 
-# Synopsis
+# Usage
 
-1. Create `knex` migration file
-1. Import this library in migration file
-1. Create SQL files
+Add one of the below scripts to the `package.json` based on your usage (with TypeScript ESM support):
+
+```json
+{
+  "scripts": {
+    "knex": "NODE_OPTIONS='--experimental-vm-modules --loader ts-node/esm' dotenv knex",
+    "knex:sqlmigration": "NODE_OPTIONS='--experimental-vm-modules --loader ts-node/esm' sqlmigration"
+  }
+}
+```
+
+# Alternative 1: Generate Files
+
+- Execute generator. It creates migration file and SQL files. Created files are dependency free. (They are are not dependent to this library.)
 
 ```sh
-$ knex migrate:make add-user-table
-Created Migration: /some/path/20180516163212_add-user-table.js
+$ npm run knex:sqlmigration add-user-table
 ```
 
-**/some/path/20180516163212_add-user-table.js**
+# Alternative 2: Export from Migration File
 
-```js
-//                    Don't forget function call ⤵
-module.exports = require("knex-migrate-sql-file")();
+- Create `knex` migration file.
+- Create SQL files.
+- Export functions of this library from migration file.
+
+```sh
+$ npm run knex migrate:make add-user-table
 ```
 
-**/some/path/20180516163212_add-user-table.up.sql**
+**/db/migrations/20180516163212_add-user-table.js**
+
+```ts
+import getMigrators from "knex-migrate-sql-file";
+
+export const { up, down } = getMigrators();
+```
+
+**/db/migrations/20180516163212_add-user-table.up.sql**
 
 ```sql
-CREATE TABLE "user"
+CREATE TABLE "user" (...);
 ```
 
-**/some/path/20180516163212_add-user-table.down.sql**
+**/db/migrations/20180516163212_add-user-table.down.sql**
 
 ```sql
-DROP TABLE "user"
+DROP TABLE "user";
 ```
 
-You can override `up` or `down` function according to your needs.
 
-# API
-## Functions
+# Alternative 3: Use Functions
 
-<dl>
-<dt><a href="#up">up(knex, Promise)</a></dt>
-<dd><p>Reads <code>.up.sql</code> file and executes it using <code>knex.raw()</code> method.</p>
-</dd>
-<dt><a href="#down">down(knex, Promise)</a></dt>
-<dd><p>Reads <code>.down.sql</code> file and executes it using <code>knex.raw()</code> method.</p>
-</dd>
-</dl>
+- Create `knex` migration file.
+- Create SQL files.
+- Use functions of this library in the migration file.
 
-<a name="up"></a>
-
-## up(knex, Promise)
-Reads `.up.sql` file and executes it using `knex.raw()` method.
-
-**Kind**: global function  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| knex | <code>Knex</code> | Knex object |
-| Promise | <code>Promise</code> | Promise |
-
-**Example**  
-```js
-module.exports = require("knex-migrate-sql-file")();
+```sh
+$ npm run knex migrate:make add-user-table
 ```
-<a name="down"></a>
 
-## down(knex, Promise)
-Reads `.down.sql` file and executes it using `knex.raw()` method.
+**/db/migrations/20180516163212_add-user-table.js**
 
-**Kind**: global function  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| knex | <code>Knex</code> | Knex object |
-| Promise | <code>Promise</code> | Promise |
-
-**Example**  
 ```js
-module.exports = require("knex-migrate-sql-file")();
+import { upSQL, downSQL } from "knex-migrate-sql-file";
+ 
+export async function up(knex: Knex): Promise<void> {
+  await upSQL(knex);
+}
+
+export async function down(knex: Knex): Promise<void> {
+  await downSQL(knex);
+}
+```
+
+**/db/migrations/20180516163212_add-user-table.up.sql**
+
+```sql
+CREATE TABLE "user" (...);
+```
+
+**/db/migrations/20180516163212_add-user-table.down.sql**
+
+```sql
+DROP TABLE "user";
 ```
