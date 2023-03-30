@@ -1,6 +1,6 @@
 {
   "name": "knex-migrate-sql-file",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "description": "Use sql files instead of `knex.schema` methods.",
   "main": "./dist/index.js",
   "exports": "./dist/index.js",
